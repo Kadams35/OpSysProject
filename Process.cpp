@@ -28,6 +28,6 @@ int Process::get_context_switch_time() const{
 }
 
 
-std::vector<int> Process::get_burst_list() const;{
+std::vector<int> Process::get_burst_list() const{
 	return burst_list;
 }
