@@ -1,21 +1,23 @@
 /* Process header file */
 
 #include <string>
+using namespace std;
 
 class Process{
 public:
-		Process(std::string a_id, int a_arrival, int a_context_switch, std::vector<int> a_burst_list);
+		Process(string a_id, int a_arrival, int a_context_switch, vector<int> a_burst_list, vector<int> a_io_list);
 
 		//Accessors
-		std::string get_id() const;
+		string get_id() const;
 		int get_arrival_time() const;
 		int get_context_switch_time() const;
-		std::vector<int> get_burst_time() const;
+		vector<int> get_burst_time() const;
 
 
 private:
-		std::string id;
+		string id;
 		int arrival;
 		int context_switch;
-		std::vector<int> burst_list;
+		vector<int> burst_list;
+		vector<int> io_list;
 };
