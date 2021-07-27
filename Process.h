@@ -11,7 +11,8 @@ public:
 		string get_id() const;
 		int get_arrival_time() const;
 		int get_context_switch_time() const;
-		vector<int> get_burst_time() const;
+		vector<int> get_burst_list() const;
+		vector<int> get_io_list() const;
 
 
 private:
