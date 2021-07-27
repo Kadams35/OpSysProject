@@ -3,13 +3,14 @@
 #include <vector>
 #include "Process.h"
 
+using namespace std;
 
-
-Process::Process(std::string a_id, int a_arrival, int a_context_switch, int a_burst){
+Process::Process(string a_id, int a_arrival, int a_context_switch, vector<int> a_burst_list, vector<int> a_io_list){
 	id = a_id;
 	arrival = a_arrival;
 	context_switch = a_context_switch;
 	burst_list = a_burst_list;
+	io_list = a_burst_list;
 }
 
 
@@ -28,6 +29,10 @@ int Process::get_context_switch_time() const{
 }
 
 
-std::vector<int> Process::get_burst_list() const{
+vector<int> Process::get_burst_list() const{
 	return burst_list;
+}
+
+vector<int> Process::get_io_list() const{
+	return io_list
 }
