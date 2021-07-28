@@ -9,7 +9,7 @@ Process::Process(char a_id, int a_arrival, std::vector<int> a_burst_list, std::v
 	id = a_id;
 	arrival = a_arrival;
 	burst_list = a_burst_list;
-	io_list = a_burst_list;
+	io_list = a_io_list;
 }
 
 
