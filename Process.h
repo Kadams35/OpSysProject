@@ -5,7 +5,6 @@ using namespace std;
 
 class Process{
 public:
-		Process();
 		Process(char a_id, int a_arrival, std::vector<int> a_burst_list, std::vector<int> a_io_list);
 
 		//Accessors
