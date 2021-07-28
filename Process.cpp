@@ -3,6 +3,7 @@
 #include <vector>
 #include "Process.h"
 
+using namespace std;
 
 Process::Process(char a_id, int a_arrival, std::vector<int> a_burst_list, std::vector<int> a_io_list){
 	id = a_id;
