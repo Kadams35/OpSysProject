@@ -70,6 +70,8 @@ int main(int argc, char* argv[]) {
     int t_slice = std::stoi(argv[7]); //for RR algorithm, time slice value measured in milliseconds
 
     
+    std::vector<Process> Main_list = mainlist(n, seed, lambda, upper_bound);
+    //send to fcfsfsfscsdssfscdcd
 
     return EXIT_SUCCESS;
 }
