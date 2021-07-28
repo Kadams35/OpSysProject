@@ -20,6 +20,7 @@ double next_exp(double lambda, int upper_bound){
     else{
         return x;
     }
+    return x;
 }
 
 
