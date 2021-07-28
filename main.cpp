@@ -5,7 +5,10 @@
 #include <cstdlib>
 #include <string>
 #include <tgmath.h>
+#include <vector>
+#include <stdlib.h>
 //#include <cassert>
+#include "Process.h"
 
 
 double next_exp(double lambda, int upper_bound){
@@ -18,6 +21,39 @@ double next_exp(double lambda, int upper_bound){
         return x;
     }
 }
+
+
+
+std::vector<Process> mainlist(int n, int seed, double lambda, int upper_bound) {
+    srand48(seed); //Sets the seed (this needs to be done before each method to reset the randomization)
+    std::string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    std::vector<Process> Main_list;
+    for (int i = 0; i < n; i++) {
+        char id = alphabet[i];
+        int arrival = next_exp(lambda, upper_bound);
+        int num_cpu_bursts = ceil(next_exp(lambda, upper_bound) * 100);
+
+        std::vector<int> cpu_bursts;
+        std::vector<int> io_bursts;
+        for (int j = 0; j < num_cpu_bursts; j++) {
+            int temp, temp1;
+            if (j == num_cpu_bursts - 1) {
+                int temp = ceil(next_exp(lambda, upper_bound));
+                int temp1 = 0;
+            }
+            else {
+                int temp = ceil(next_exp(lambda, upper_bound));
+                int temp1 = ceil(next_exp(lambda, upper_bound) * 10);
+            }
+            cpu_bursts.push_back(temp);
+            io_bursts.push_back(temp1);
+        }
+        Main_list.push_back(Process(id, arrival, cpu_bursts, io_bursts));
+    }
+    return Main_list;
+}
+
+
 
 int main(int argc, char* argv[]) {
     if (argc != 8) {
@@ -33,8 +69,7 @@ int main(int argc, char* argv[]) {
     float alpha = std::stof(argv[6]); //alpha variable for exponential averaging //this might not be a float..
     int t_slice = std::stoi(argv[7]); //for RR algorithm, time slice value measured in milliseconds
 
-    srand48(seed); //Sets the seed (this needs to be done before each method to reset the randomization)
     
-    //wtf is going on man
+
     return EXIT_SUCCESS;
 }
