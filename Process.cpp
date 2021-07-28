@@ -5,6 +5,13 @@
 
 using namespace std;
 
+Process::Process(){
+	id = " ";
+	arrival = 0;
+	burst_list = {0};
+	io_list = {0};
+}
+
 Process::Process(char a_id, int a_arrival, std::vector<int> a_burst_list, std::vector<int> a_io_list){
 	id = a_id;
 	arrival = a_arrival;
