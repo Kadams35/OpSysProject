@@ -15,11 +15,9 @@ double next_exp(double lambda, int upper_bound){
     double r = drand48();
     double x = -log(r)/lambda;
     if(x > upper_bound){
-        next_exp(lambda, upper_bound);
+        x = next_exp(lambda, upper_bound);
     }
-    else{
-        return x; //need to fix this so no errors ahjahhhoisdfla;jodsjf
-    }
+    return x;
 }
 
 
