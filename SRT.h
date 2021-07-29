@@ -15,6 +15,5 @@ class SRT{
         vector<Process> processList;
         int lambda;
         int contextSwitch;
-        int time; //Keeps track of how many milliseconds have passed in the simulation
         vector<char> queueList;
 };

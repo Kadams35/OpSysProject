@@ -79,6 +79,7 @@ int main(int argc, char* argv[]) {
     //FCFS test = FCFS(Main_list, t_cs);
     //test.FCFS_algorithm();
 
+    std::cout << "printing test int " << 1/0.01 << std::endl;
     SRT test = SRT(Main_list, t_cs, lambda);
     test.SRTAlgorithm();
     return EXIT_SUCCESS;

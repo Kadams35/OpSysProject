@@ -2,26 +2,14 @@
 #include <string>
 #include <vector>
 #include "Process.h"
+#include "SRT.h"
 #include <time.h>
 #include <map>
 #include <utility>
-#include <tuple>
 #include <algorithm>
-#include <tgmath.h>
+#include "tgmath.h"
 
 using namespace std;
-
-class SRT{
-    public:
-        SRT(vector<Process> passedProcessList, int passedContextSwitch, int mainLambda);
-        void SRTAlgorithm();
-    private:
-        vector<Process> processList;
-        int lambda;
-        int contextSwitch;
-        int time; //Keeps track of how many milliseconds have passed in the simulation
-        vector<char> queueList;
-};
 
 bool sorter(Process one, Process two){
     int smallSize = 0;
@@ -68,6 +56,8 @@ void SRT::SRTAlgorithm(){
         tauTracker[name] = 1/lambda;
     }
 
+    int time = 0;
+
     cout << "time 0ms: Simulator started for SRT [Q empty]" << endl;
     while(1){
         if(cpu == 0){
@@ -77,11 +67,11 @@ void SRT::SRTAlgorithm(){
                 int burstInterval = burstTracker[queueList[0]];
                 burstTime = (objectQueue[0].get_burst_list())[burstInterval];
                 cout << "time " << time << "ms: Process " << queueList[1] << "(tau " << tauTracker[objectQueue[0].get_id()] << "ms) started using the CPU for " << burstTime << "ms burst [Q ";
-                if (queueList.size() == 2){
+                if (queueList.size() == 1){
                     cout << "empty]" << endl;
                 }
                 else{
-                    for (unsigned int c = 1; c < queueList.size(); c++){
+                    for (unsigned int c = 0; c < queueList.size(); c++){
                         cout << queueList[c];
                         if (c != (queueList.size()-1)){
                             cout << " ";
@@ -105,7 +95,7 @@ void SRT::SRTAlgorithm(){
                     tempList.erase(tempList.begin()+i);
 
                     cout << "time " << time << "ms: Process " << tempList[i].get_id() << " (tau " << tauTracker[tempList[i].get_id()] << "ms) arrived; added to ready queue [Q ";
-                    for(unsigned int j = 1; j < queueList.size(); j++){
+                    for(unsigned int j = 0; j < queueList.size(); j++){
                         cout << queueList[j];
                         if(j != (queueList.size()-1)){
                             cout << " ";
@@ -164,8 +154,8 @@ void SRT::SRTAlgorithm(){
                 //Calculating Tau
                 int tempTau = tauTracker[currentCPU.second];
                 tauTracker[currentCPU.second] = ceil(0.5 * tauTracker[currentCPU.second] + 0.5 * currentCPU.first.get_burst_list()[burstTracker[currentCPU.second]-1]);
-                cout << "time " << time << "ms: Recalculated tau from " << tempTau << "ms to " << tauTracker[currentCPU.second] << "ms for process " << currentCPU.second << "[Q ";
-                if(queueList.size() == 1){
+                cout << "time " << time << "ms: Recalculated tau from " << tempTau << "ms to " << tauTracker[currentCPU.second] << "ms for process " << currentCPU.second << " [Q ";
+                if(queueList.size() == 0){
                     cout << "empty]" << endl;
                 }
                 else{
@@ -185,8 +175,8 @@ void SRT::SRTAlgorithm(){
                 blockList[currentCPU.second] += 1;
                 IOBlock[currentCPU.second] = IOTime;
 
-                cout << "time " << time << "ms: Process " << currentCPU.second << "switching out of CPU; will block on I/O until time " << IOTime << "ms [Q ";
-                if (queueList.size() == 1){
+                cout << "time " << time << "ms: Process " << currentCPU.second << " switching out of CPU; will block on I/O until time " << IOTime << "ms [Q ";
+                if (queueList.size() == 0){
                     cout << "empty]" << endl;
                 }
                 else{
@@ -207,7 +197,7 @@ void SRT::SRTAlgorithm(){
                 queueList.push_back(tempList[i].get_id());
                 objectQueue.push_back(tempList[i]);
                 cout << "time " << time << "ms: Process " << processList[i].get_id() << " (tau " << tauTracker[tempList[i].get_id()] << "ms) completed I/O; added to ready queue [Q ";
-				for (unsigned int e = 1; e < queueList.size(); e++){
+				for (unsigned int e = 0; e < queueList.size(); e++){
 					cout << queueList[e];
 					if (e != (queueList.size()-1)){
 						cout << " ";
