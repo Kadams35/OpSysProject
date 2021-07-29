@@ -8,6 +8,7 @@
 #include <stdlib.h>
 //#include <cassert>
 #include "Process.h"
+#include "SJF.h"
 #include "FCFS_RR.h"
 
 
@@ -78,10 +79,13 @@ int main(int argc, char* argv[]) {
     std::vector<Process> Main_list = mainlist(n, seed, lambda, upper_bound);
 
     //send to fcfsfsfscsdssfscdcd
-
+    
     FCFS_RR test = FCFS_RR(Main_list, t_cs, t_slice);
     test.FCFS_algorithm();
-
+  
+    SJF test = SJF(Main_list, t_cs, lambda);
+    test.SJFAlgorithm();
+  
     FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
     test4.RR_algorithm();
 

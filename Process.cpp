@@ -22,7 +22,6 @@ int Process::get_arrival_time() const{
 	return arrival;
 }
 
-
 std::vector<int> Process::get_burst_list() const{
 	return burst_list;
 }
@@ -30,4 +29,5 @@ std::vector<int> Process::get_burst_list() const{
 std::vector<int> Process::get_io_list() const{
 	return io_list;
 }
+
 ;
