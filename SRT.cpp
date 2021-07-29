@@ -57,7 +57,7 @@ void SRT::SRTAlgorithm(){
                     cout << "empty]" << endl;
                 }
                 else{
-                    for (unsigned int c = 0; c < queueList.size(); c++){
+                    for (unsigned int c = 1; c < queueList.size(); c++){
                         cout << queueList[c];
                         if (c != (queueList.size()-1)){
                             cout << " ";
@@ -67,9 +67,10 @@ void SRT::SRTAlgorithm(){
                 }
                 burstTime = burstTime + time;
                 currentCPU.first = objectQueue[0];
-                currentCPU.second = objectQueue[0].get_id();
+                currentCPU.second = queueList[0];
                 burstTracker[queueList[0]] += 1;
                 queueList.erase(queueList.begin());
+                objectQueue.erase(objectQueue.begin());
             }
         }
 
@@ -90,8 +91,16 @@ void SRT::SRTAlgorithm(){
                                 break;
                             }
                             else if(burstTracker[queueList[tempIter]] == burstTracker[tempList[i].get_id()]){
-                                if(IOTracker[queueList[tempIter]] >= IOTracker[tempList[i].get_id()]){
+                                if(IOTracker[queueList[tempIter]] > IOTracker[tempList[i].get_id()]){
                                     break;
+                                }
+                                else if(IOTracker[queueList[tempIter]] == IOTracker[processList[i].get_id()]){
+                                    if(queueList[tempIter] > processList[i].get_id()){
+                                        break;
+                                    }
+                                    else{
+                                        continue;
+                                    }
                                 }
                                 else{
                                     continue;
@@ -187,7 +196,7 @@ void SRT::SRTAlgorithm(){
 							cout << " ";
 						}
                     }
-                    cout << endl;
+                    cout << "]" << endl;
                 }
                 
                 int IOInterval = blockList[currentCPU.second];
@@ -210,7 +219,7 @@ void SRT::SRTAlgorithm(){
                     cout << "empty]" << endl;
                 }
                 else{
-                    for (unsigned int i = 1; i < queueList.size(); i++){
+                    for (unsigned int i = 0; i < queueList.size(); i++){
                         cout << queueList[i];
                         if (i != (queueList.size()-1)){
                             cout << " ";
@@ -239,7 +248,7 @@ void SRT::SRTAlgorithm(){
                                 break;
                             }
                             else if(IOTracker[queueList[tempIter]] == IOTracker[processList[i].get_id()]){
-                                if(queueList[tempIter] > processList[i].get_id()){
+                                if(queueList[tempIter] < processList[i].get_id()){
                                     break;
                                 }
                                 else{
@@ -274,6 +283,8 @@ void SRT::SRTAlgorithm(){
             }
         }
 
+        //cout << finished.size() << " " << processList.size() << endl;
+        //cout << "CST: "  << contextSwitchTime << " Time: " << time << endl;
         if(finished.size() == processList.size() && contextSwitchTime <= time){
             cout << "time " << time << "ms: Simulator ended for SRT [Q empty]\n";
 			cout << endl;
