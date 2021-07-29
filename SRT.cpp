@@ -15,7 +15,6 @@ SRT::SRT(vector<Process> passedProcessList, int passedContextSwitch, float mainL
     processList = passedProcessList;
     contextSwitch = passedContextSwitch;
     lambda = mainLambda;
-    cout << "lambda = " << lambda << endl;
 }
 
 void SRT::SRTAlgorithm(){
@@ -41,7 +40,6 @@ void SRT::SRTAlgorithm(){
         IOBlock[name] = 0;
         blockList[name] = 0;
         tauTracker[name] = 1/lambda;
-        cout << name << ": " << tauTracker[name] << " from lambda: " << lambda << endl;
     }
 
     int time = 0;
@@ -54,7 +52,7 @@ void SRT::SRTAlgorithm(){
                 contextSwitchTracker = 1;
                 int burstInterval = burstTracker[queueList[0]];
                 burstTime = (objectQueue[0].get_burst_list())[burstInterval];
-                cout << "time " << time << "ms: Process " << queueList[0] << "(tau " << tauTracker[objectQueue[0].get_id()] << "ms) started using the CPU for " << burstTime << "ms burst [Q ";
+                cout << "time " << time << "ms: Process " << queueList[0] << " (tau " << tauTracker[objectQueue[0].get_id()] << "ms) started using the CPU for " << burstTime << "ms burst [Q ";
                 if (queueList.size() == 1){
                     cout << "empty]" << endl;
                 }
@@ -81,8 +79,9 @@ void SRT::SRTAlgorithm(){
                     if(queueList.size() == 0){
                         contextSwitchTime = (contextSwitch/2) + time;
                     }
-                    int tempIter = 0;
-                    for(tempIter = 0; tempIter < queueList.size(); tempIter++){
+                    //Figuring out where to add new process
+                    unsigned int tempIter = 0;
+                    for(unsigned tempIter = 0; tempIter < queueList.size(); tempIter++){
                         if(tauTracker[queueList[tempIter]] > tauTracker[tempList[i].get_id()]){
                             break;
                         }
@@ -108,16 +107,16 @@ void SRT::SRTAlgorithm(){
                     }
                     queueList.insert(queueList.begin()+tempIter, tempList[i].get_id());
                     objectQueue.insert(objectQueue.begin()+tempIter, tempList[i]);
+                    cout << "time " << time << "ms: Process " << tempList[i].get_id() << " (tau " << tauTracker[tempList[i].get_id()] << "ms) arrived; added to ready queue [Q ";
                     tempList.erase(tempList.begin()+i);
 
-                    cout << "time " << time << "ms: Process " << tempList[i].get_id() << " (tau " << tauTracker[tempList[i].get_id()] << "ms) arrived; added to ready queue [Q ";
                     for(unsigned int j = 0; j < queueList.size(); j++){
                         cout << queueList[j];
                         if(j != (queueList.size()-1)){
                             cout << " ";
                         }
-                        cout << "]" << endl;
                     }
+                    cout << "]" << endl;
                 }
             }
         }
@@ -140,7 +139,7 @@ void SRT::SRTAlgorithm(){
                             cout << " ";
                         }
                     }
-                    cout << endl;
+                    cout << "]" << endl;
                     contextSwitchTracker += 1;
                 }
                 contextSwitchTime = 0;
@@ -170,7 +169,7 @@ void SRT::SRTAlgorithm(){
 							cout << " ";
 						}
                     }
-                    cout << endl;
+                    cout << "]" << endl;
                     contextSwitchTracker++;
                 }
 
@@ -217,7 +216,7 @@ void SRT::SRTAlgorithm(){
                             cout << " ";
                         }
                     }
-                    cout << endl;
+                    cout << "]" << endl;
                 }
             }
         }
@@ -225,8 +224,42 @@ void SRT::SRTAlgorithm(){
         for(unsigned int i = 0; i < processList.size(); i++){
             if(IOBlock[processList[i].get_id()] != 0 && IOBlock[processList[i].get_id()] == time){
                 IOBlock[processList[i].get_id()] = 0; 
-                queueList.push_back(tempList[i].get_id());
-                objectQueue.push_back(tempList[i]);
+                //Figuring out where to add new process
+                unsigned int tempIter = 0;
+                for(tempIter = 0; tempIter < queueList.size(); tempIter++){
+                    if(tauTracker[queueList[tempIter]] > tauTracker[processList[i].get_id()]){
+                        break;
+                    }
+                    else if(tauTracker[queueList[tempIter]] == tauTracker[processList[i].get_id()]){
+                        if(burstTracker[queueList[tempIter]] > burstTracker[processList[i].get_id()]){
+                            break;
+                        }
+                        else if(burstTracker[queueList[tempIter]] == burstTracker[processList[i].get_id()]){
+                            if(IOTracker[queueList[tempIter]] > IOTracker[processList[i].get_id()]){
+                                break;
+                            }
+                            else if(IOTracker[queueList[tempIter]] == IOTracker[processList[i].get_id()]){
+                                if(queueList[tempIter] > processList[i].get_id()){
+                                    break;
+                                }
+                                else{
+                                    continue;
+                                }
+                            }
+                            else{
+                                continue;
+                            }
+                        }
+                        else{
+                            continue;
+                        }
+                    }
+                    else{
+                        continue;
+                    }
+                }
+                queueList.insert(queueList.begin()+tempIter, processList[i].get_id());
+                objectQueue.insert(objectQueue.begin()+tempIter, processList[i]);
                 cout << "time " << time << "ms: Process " << processList[i].get_id() << " (tau " << tauTracker[tempList[i].get_id()] << "ms) completed I/O; added to ready queue [Q ";
 				for (unsigned int e = 0; e < queueList.size(); e++){
 					cout << queueList[e];
