@@ -72,9 +72,6 @@ void FCFS_RR::FCFS_algorithm(){
 				else{
 					for (unsigned int c = 1; c < queue_list.size(); c++){
 						cout << queue_list[c];
-						if (c != (queue_list.size()-1)){
-							cout << " ";
-						}
 					}
 					cout << "]" << endl;
 				}
@@ -120,9 +117,6 @@ void FCFS_RR::FCFS_algorithm(){
 						//cout << "time " << time << "ms: Process " << temp_list[x].get_id() << " arrived; added to ready queue [Q ";
 						for (unsigned int b = 1; b < queue_list.size(); b++){
 							cout << queue_list[b];
-							if (b != (queue_list.size()-1)){
-								cout << " ";
-							}
 						}
 						cout << "]" << endl;
 					}
@@ -149,9 +143,6 @@ void FCFS_RR::FCFS_algorithm(){
 				else{
 					for (unsigned int d = 1; d < queue_list.size(); d++){
 						cout << queue_list[d];
-						if (d != (queue_list.size()-1)){
-							cout << " ";
-						}
 					}
 					cout << "]" << endl;
 					context_switch_tracker += 1;
@@ -183,9 +174,6 @@ void FCFS_RR::FCFS_algorithm(){
 					else{
 						for (unsigned int d = 1; d < queue_list.size(); d++){
 							cout << queue_list[d];
-							if (d != (queue_list.size()-1)){
-								cout << " ";
-							}
 						}
 						cout << "]" << endl;
 					}
@@ -217,9 +205,6 @@ void FCFS_RR::FCFS_algorithm(){
 					else{
 						for (unsigned int e = 1; e < queue_list.size(); e++){
 							cout << queue_list[e];
-							if (e != (queue_list.size()-1)){
-								cout << " ";
-							}
 						}
 						cout << "]" << endl;
 					}
@@ -242,9 +227,6 @@ void FCFS_RR::FCFS_algorithm(){
 					cout << "time " << time << "ms: Process " << process_list[a].get_id() << " completed I/O; added to ready queue [Q ";
 					for (unsigned int e = 1; e < queue_list.size(); e++){
 						cout << queue_list[e];
-						if (e != (queue_list.size()-1)){
-							cout << " ";
-						}
 					}
 					cout << "]" << endl;
 				}
