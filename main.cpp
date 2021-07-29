@@ -9,6 +9,7 @@
 //#include <cassert>
 #include "Process.h"
 #include "SJF.h"
+#include "FCFS_RR.h"
 
 
 double next_exp(double lambda, int upper_bound){
@@ -49,8 +50,12 @@ std::vector<Process> mainlist(int n, int seed, double lambda, int upper_bound) {
 
             }
         }
-        Main_list.push_back(Process(id, arrival, cpu_bursts, io_bursts));
+
+        Process temp = Process(id, arrival, cpu_bursts, io_bursts);
+        cout << "Process " << temp.get_id() << " (arrival time " << arrival << " ms) " << num_cpu_bursts << " CPU bursts (tau " << ceil(1/lambda) << "ms)" << endl; 
+        Main_list.push_back(temp);
     }
+    cout << "\n";
     return Main_list;
 }
 
@@ -67,19 +72,22 @@ int main(int argc, char* argv[]) {
     double lambda = std::stod(argv[3]); //lambda value for interarrival times
     int upper_bound = std::stoi(argv[4]); //upper_bound for valid pseudo-random numbers
     int t_cs = std::stoi(argv[5]); //time in milliseconds for a context switch
-    float alpha = std::stof(argv[6]); //alpha variable for exponential averaging //this might not be a float..
+    //float alpha = std::stof(argv[6]); //alpha variable for exponential averaging //this might not be a float..
     int t_slice = std::stoi(argv[7]); //for RR algorithm, time slice value measured in milliseconds
 
     
     std::vector<Process> Main_list = mainlist(n, seed, lambda, upper_bound);
 
     //send to fcfsfsfscsdssfscdcd
-
-    //FCFS test = FCFS(Main_list, t_cs);
-    //test.FCFS_algorithm();
-
-    std::cout << "printing test int " << lambda << std::endl;
+    
+    FCFS_RR test = FCFS_RR(Main_list, t_cs, t_slice);
+    test.FCFS_algorithm();
+  
     SJF test = SJF(Main_list, t_cs, lambda);
     test.SJFAlgorithm();
+  
+    FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
+    test4.RR_algorithm();
+
     return EXIT_SUCCESS;
 }
