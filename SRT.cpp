@@ -208,7 +208,7 @@ void SRT::SRTAlgorithm(){
         }
 
         if(finished.size() == processList.size()){
-            cout << "time " << time << "ms: Simulator ended for FCFS [Q empty]\n";
+            cout << "time " << time << "ms: Simulator ended for SRT [Q empty]\n";
 			cout << endl;
 			break;
         }
