@@ -18,9 +18,8 @@ double next_exp(double lambda, int upper_bound){
         next_exp(lambda, upper_bound);
     }
     else{
-        return x;
+        return x; //need to fix this so no errors ahjahhhoisdfla;jodsjf
     }
-    return x;
 }
 
 
@@ -47,7 +46,7 @@ std::vector<Process> mainlist(int n, int seed, double lambda, int upper_bound) {
             }
             else {
                 int temp = ceil(next_exp(lambda, upper_bound));
-                int temp1 = ceil(next_exp(lambda, upper_bound) * 10);
+                int temp1 = ceil(next_exp(lambda, upper_bound))*10;
                 cpu_bursts.push_back(temp);
                 io_bursts.push_back(temp1);
             }
