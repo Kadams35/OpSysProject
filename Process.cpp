@@ -5,18 +5,11 @@
 
 using namespace std;
 
-Process::Process(){
-	id = ' ';
-	arrival = 0;
-	burst_list = std::vector<int>();
-	io_list = std::vector<int>();
-}
-
-Process::Process(char a_id, int a_arrival, std::vector<int> a_burst_list, std::vector<int> a_io_list){
+Process::Process(char a_id, int a_arrival, std::vector<long int> a_burst_list, std::vector<int> a_io_list){
 	id = a_id;
 	arrival = a_arrival;
 	burst_list = a_burst_list;
-	io_list = a_burst_list;
+	io_list = a_io_list;
 }
 
 
@@ -30,7 +23,7 @@ int Process::get_arrival_time() const{
 }
 
 
-std::vector<int> Process::get_burst_list() const{
+std::vector<long int> Process::get_burst_list() const{
 	return burst_list;
 }
 

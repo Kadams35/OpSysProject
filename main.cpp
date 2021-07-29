@@ -19,6 +19,7 @@ double next_exp(double lambda, int upper_bound){
     else{
         return x;
     }
+    return x;
 }
 
 
@@ -30,27 +31,32 @@ std::vector<Process> mainlist(int n, int seed, double lambda, int upper_bound) {
     for (int i = 0; i < n; i++) {
         char id = alphabet[i];
         int arrival = next_exp(lambda, upper_bound);
-        int num_cpu_bursts = ceil(next_exp(lambda, upper_bound) * 100);
+        int num_cpu_bursts = ceil(drand48() * 100);
 
-        std::vector<int> cpu_bursts;
+        std::vector<long int> cpu_bursts;
         std::vector<int> io_bursts;
         for (int j = 0; j < num_cpu_bursts; j++) {
-            int temp, temp1;
+            long int temp;
+            int temp1;
             if (j == num_cpu_bursts - 1) {
                 int temp = ceil(next_exp(lambda, upper_bound));
                 int temp1 = 0;
+                cpu_bursts.push_back(temp);
+                io_bursts.push_back(temp1);
             }
             else {
                 int temp = ceil(next_exp(lambda, upper_bound));
                 int temp1 = ceil(next_exp(lambda, upper_bound) * 10);
+                cpu_bursts.push_back(temp);
+                io_bursts.push_back(temp1);
             }
-            cpu_bursts.push_back(temp);
-            io_bursts.push_back(temp1);
         }
         Main_list.push_back(Process(id, arrival, cpu_bursts, io_bursts));
+
     }
     return Main_list;
 }
+
 
 
 
