@@ -7,10 +7,10 @@
 
 using namespace std;
 
-class SRT{
+class SJF{
     public:
-        SRT(vector<Process> passedProcessList, int passedContextSwitch, float mainLambda);
-        void SRTAlgorithm();
+        SJF(vector<Process> passedProcessList, int passedContextSwitch, float mainLambda);
+        void SJFAlgorithm();
     private:
         vector<Process> processList;
         float lambda;

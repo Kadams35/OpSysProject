@@ -8,7 +8,7 @@
 #include <stdlib.h>
 //#include <cassert>
 #include "Process.h"
-#include "SRT.h"
+#include "SJF.h"
 
 
 double next_exp(double lambda, int upper_bound){
@@ -79,7 +79,7 @@ int main(int argc, char* argv[]) {
     //test.FCFS_algorithm();
 
     std::cout << "printing test int " << lambda << std::endl;
-    SRT test = SRT(Main_list, t_cs, lambda);
-    test.SRTAlgorithm();
+    SJF test = SJF(Main_list, t_cs, lambda);
+    test.SJFAlgorithm();
     return EXIT_SUCCESS;
 }

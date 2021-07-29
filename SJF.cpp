@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "Process.h"
-#include "SRT.h"
+#include "SJF.h"
 #include <time.h>
 #include <map>
 #include <utility>
@@ -11,13 +11,13 @@
 
 using namespace std;
 
-SRT::SRT(vector<Process> passedProcessList, int passedContextSwitch, float mainLambda){
+SJF::SJF(vector<Process> passedProcessList, int passedContextSwitch, float mainLambda){
     processList = passedProcessList;
     contextSwitch = passedContextSwitch;
     lambda = mainLambda;
 }
 
-void SRT::SRTAlgorithm(){
+void SJF::SJFAlgorithm(){
     int contextSwitchTracker = 0; //Tracking if a context switch is currently happening
     int contextSwitchTime = 0;
     int burstTime = 0;
