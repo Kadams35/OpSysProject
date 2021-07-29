@@ -83,8 +83,8 @@ int main(int argc, char* argv[]) {
     FCFS_RR test = FCFS_RR(Main_list, t_cs, t_slice);
     test.FCFS_algorithm();
   
-    SJF test = SJF(Main_list, t_cs, lambda);
-    test.SJFAlgorithm();
+    SJF test2 = SJF(Main_list, t_cs, lambda);
+    test2.SJFAlgorithm();
   
     FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
     test4.RR_algorithm();
