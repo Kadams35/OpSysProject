@@ -11,25 +11,11 @@
 
 using namespace std;
 
-bool sorter(Process one, Process two){
-    int smallSize = 0;
-    if(one.get_burst_list().size() > two.get_burst_list().size()){
-        smallSize = two.get_burst_list().size();
-    }
-    else{
-        smallSize = one.get_burst_list().size();
-    }
-    for(int i = 0; i < smallSize; i++){
-        return one.get_burst_list()[i] < two.get_burst_list()[i];
-    }
-    return one.get_burst_list()[0] < two.get_burst_list()[0];
-}
-
-SRT::SRT(vector<Process> passedProcessList, int passedContextSwitch, int mainLambda){
+SRT::SRT(vector<Process> passedProcessList, int passedContextSwitch, float mainLambda){
     processList = passedProcessList;
-    std::sort(processList.begin(), processList.end(), sorter);
     contextSwitch = passedContextSwitch;
     lambda = mainLambda;
+    cout << "lambda = " << lambda << endl;
 }
 
 void SRT::SRTAlgorithm(){
@@ -45,6 +31,7 @@ void SRT::SRTAlgorithm(){
     pair<Process, char> currentCPU (processList[0], processList[0].get_id());
     vector<Process> finished; //Vector storing finished processes
     map<char, unsigned int> tauTracker; // storing the Tau values
+    map<char, unsigned int> IOTracker;
 
 
     //setting up the map
@@ -54,6 +41,7 @@ void SRT::SRTAlgorithm(){
         IOBlock[name] = 0;
         blockList[name] = 0;
         tauTracker[name] = 1/lambda;
+        cout << name << ": " << tauTracker[name] << " from lambda: " << lambda << endl;
     }
 
     int time = 0;
@@ -61,12 +49,12 @@ void SRT::SRTAlgorithm(){
     cout << "time 0ms: Simulator started for SRT [Q empty]" << endl;
     while(1){
         if(cpu == 0){
-            if(queueList.size() >=  1){
+            if(queueList.size() >=  1 && contextSwitchTime <= time){
                 cpu = 1;
                 contextSwitchTracker = 1;
                 int burstInterval = burstTracker[queueList[0]];
                 burstTime = (objectQueue[0].get_burst_list())[burstInterval];
-                cout << "time " << time << "ms: Process " << queueList[1] << "(tau " << tauTracker[objectQueue[0].get_id()] << "ms) started using the CPU for " << burstTime << "ms burst [Q ";
+                cout << "time " << time << "ms: Process " << queueList[0] << "(tau " << tauTracker[objectQueue[0].get_id()] << "ms) started using the CPU for " << burstTime << "ms burst [Q ";
                 if (queueList.size() == 1){
                     cout << "empty]" << endl;
                 }
@@ -90,8 +78,36 @@ void SRT::SRTAlgorithm(){
         if(tempList.size() > 0){
             for(unsigned int i = 0; i < tempList.size(); i++){
                 if(time == tempList[i].get_arrival_time()){
-                    queueList.push_back(tempList[i].get_id());
-                    objectQueue.push_back(tempList[i]);
+                    if(queueList.size() == 0){
+                        contextSwitchTime = (contextSwitch/2) + time;
+                    }
+                    int tempIter = 0;
+                    for(tempIter = 0; tempIter < queueList.size(); tempIter++){
+                        if(tauTracker[queueList[tempIter]] > tauTracker[tempList[i].get_id()]){
+                            break;
+                        }
+                        else if(tauTracker[queueList[tempIter]] == tauTracker[tempList[i].get_id()]){
+                            if(burstTracker[queueList[tempIter]] > burstTracker[tempList[i].get_id()]){
+                                break;
+                            }
+                            else if(burstTracker[queueList[tempIter]] == burstTracker[tempList[i].get_id()]){
+                                if(IOTracker[queueList[tempIter]] >= IOTracker[tempList[i].get_id()]){
+                                    break;
+                                }
+                                else{
+                                    continue;
+                                }
+                            }
+                            else{
+                                continue;
+                            }
+                        }
+                        else{
+                            continue;
+                        }
+                    }
+                    queueList.insert(queueList.begin()+tempIter, tempList[i].get_id());
+                    objectQueue.insert(objectQueue.begin()+tempIter, tempList[i]);
                     tempList.erase(tempList.begin()+i);
 
                     cout << "time " << time << "ms: Process " << tempList[i].get_id() << " (tau " << tauTracker[tempList[i].get_id()] << "ms) arrived; added to ready queue [Q ";
@@ -100,7 +116,7 @@ void SRT::SRTAlgorithm(){
                         if(j != (queueList.size()-1)){
                             cout << " ";
                         }
-                        cout << endl;
+                        cout << "]" << endl;
                     }
                 }
             }
@@ -114,7 +130,7 @@ void SRT::SRTAlgorithm(){
             
             if(burstTracker[currentCPU.second] == currentCPU.first.get_burst_list().size()){
                 cout << "time " << time << "ms: Process " << currentCPU.second << " terminated [Q ";
-                if(queueList.size() == 1){
+                if(queueList.size() == 0){
                     cout << "empty]" << endl;
                 }
                 else{
@@ -127,6 +143,13 @@ void SRT::SRTAlgorithm(){
                     cout << endl;
                     contextSwitchTracker += 1;
                 }
+                contextSwitchTime = 0;
+                if(queueList.size() > 0){
+                    contextSwitchTime = contextSwitch + time;
+                }
+                else{
+                    contextSwitchTime = (contextSwitch/2) + time;
+                }
 
                 for(unsigned int i = 0; i < processList.size(); i++){
                     if(processList[i].get_id() == currentCPU.second){
@@ -137,7 +160,7 @@ void SRT::SRTAlgorithm(){
 
             else{
                 cout << "time " << time <<"ms: Process " << currentCPU.second << " (tau " << tauTracker[currentCPU.second] << "ms) completed a CPU burst; " << burstsLeft << " bursts to go [Q ";
-                if(queueList.size() == 1){
+                if(queueList.size() == 0){
                     cout << "empty]" << endl;
                 }
                 else{
@@ -171,6 +194,14 @@ void SRT::SRTAlgorithm(){
                 int IOInterval = blockList[currentCPU.second];
                 int IOTime = currentCPU.first.get_io_list()[IOInterval];
                 IOTime += time;
+                IOTime += (contextSwitch/2);
+
+                if(queueList.size() > 0){
+                    contextSwitchTime = contextSwitch + time;
+                }
+                else{
+                    contextSwitchTime = (contextSwitch/2) + time;
+                }
 
                 blockList[currentCPU.second] += 1;
                 IOBlock[currentCPU.second] = IOTime;
@@ -203,11 +234,14 @@ void SRT::SRTAlgorithm(){
 						cout << " ";
 					}
 				}
-				cout << endl;
+				cout << "]" << endl;
+                IOTracker[processList[i].get_id()] += 1;
+                contextSwitchTime = 0;
+                contextSwitchTime = (contextSwitch/2) + time;
             }
         }
 
-        if(finished.size() == processList.size()){
+        if(finished.size() == processList.size() && contextSwitchTime <= time){
             cout << "time " << time << "ms: Simulator ended for SRT [Q empty]\n";
 			cout << endl;
 			break;

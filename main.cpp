@@ -49,7 +49,6 @@ std::vector<Process> mainlist(int n, int seed, double lambda, int upper_bound) {
 
             }
         }
-
         Main_list.push_back(Process(id, arrival, cpu_bursts, io_bursts));
     }
     return Main_list;
@@ -79,7 +78,7 @@ int main(int argc, char* argv[]) {
     //FCFS test = FCFS(Main_list, t_cs);
     //test.FCFS_algorithm();
 
-    std::cout << "printing test int " << 1/0.01 << std::endl;
+    std::cout << "printing test int " << lambda << std::endl;
     SRT test = SRT(Main_list, t_cs, lambda);
     test.SRTAlgorithm();
     return EXIT_SUCCESS;

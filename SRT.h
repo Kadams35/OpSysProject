@@ -9,11 +9,11 @@ using namespace std;
 
 class SRT{
     public:
-        SRT(vector<Process> passedProcessList, int passedContextSwitch, int mainLambda);
+        SRT(vector<Process> passedProcessList, int passedContextSwitch, float mainLambda);
         void SRTAlgorithm();
     private:
         vector<Process> processList;
-        int lambda;
+        float lambda;
         int contextSwitch;
         vector<char> queueList;
 };
