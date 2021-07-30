@@ -59,6 +59,18 @@ std::vector<Process> mainlist(int n, int seed, double lambda, int upper_bound) {
     return Main_list;
 }
 
+double calculateBurstAverage(std::vector<Process> mainList){
+    double sum = 0.0;
+    int totalBursts = 0;
+    for(int i = 0; i < mainList.size(); i++){
+        for(int j = 0; j < mainList[i].get_burst_list().size(); j++){
+            sum = sum + mainList[i].get_burst_list()[j];
+            totalBursts++;
+        }
+    }
+    return sum/totalBursts;
+}
+
 
 
 int main(int argc, char* argv[]) {
@@ -79,7 +91,10 @@ int main(int argc, char* argv[]) {
     std::vector<Process> Main_list = mainlist(n, seed, lambda, upper_bound);
 
     //send to fcfsfsfscsdssfscdcd
-    
+    //Storing the burst average
+    double averageCPUBurst = calculateBurstAverage(Main_list);
+    //cout << "Average CPU burst: " << averageCPUBurst << endl;
+
     FCFS_RR test = FCFS_RR(Main_list, t_cs, t_slice);
     test.FCFS_algorithm();
   
