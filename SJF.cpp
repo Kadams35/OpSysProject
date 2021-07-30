@@ -76,62 +76,7 @@ void SJF::SJFAlgorithm(){
             }
         }
 
-        if(tempList.size() > 0){
-            for(unsigned int i = 0; i < tempList.size(); i++){
-                if(time == tempList[i].get_arrival_time()){
-                    if(queueList.size() == 0){
-                        contextSwitchTime = (contextSwitch/2) + time;
-                    }
-                    //Figuring out where to add new process
-                    unsigned int tempIter = 0;
-                    for(unsigned tempIter = 0; tempIter < queueList.size(); tempIter++){
-                        if(tauTracker[queueList[tempIter]] > tauTracker[tempList[i].get_id()]){
-                            break;
-                        }
-                        else if(tauTracker[queueList[tempIter]] == tauTracker[tempList[i].get_id()]){
-                            if(burstTracker[queueList[tempIter]] > burstTracker[tempList[i].get_id()]){
-                                break;
-                            }
-                            else if(burstTracker[queueList[tempIter]] == burstTracker[tempList[i].get_id()]){
-                                if(IOTracker[queueList[tempIter]] > IOTracker[tempList[i].get_id()]){
-                                    break;
-                                }
-                                else if(IOTracker[queueList[tempIter]] == IOTracker[processList[i].get_id()]){
-                                    if(queueList[tempIter] > processList[i].get_id()){
-                                        break;
-                                    }
-                                    else{
-                                        continue;
-                                    }
-                                }
-                                else{
-                                    continue;
-                                }
-                            }
-                            else{
-                                continue;
-                            }
-                        }
-                        else{
-                            continue;
-                        }
-                    }
-                    queueList.insert(queueList.begin()+tempIter, tempList[i].get_id());
-                    objectQueue.insert(objectQueue.begin()+tempIter, tempList[i]);
-                    if(time < 1000)
-                        cout << "time " << time << "ms: Process " << tempList[i].get_id() << " (tau " << tauTracker[tempList[i].get_id()] << "ms) arrived; added to ready queue [Q ";
-                    tempList.erase(tempList.begin()+i);
-
-                    if(time < 1000){
-                        for(unsigned int j = 0; j < queueList.size(); j++){
-                            cout << queueList[j];
-                        }
-                        cout << "]" << endl;
-                    }
-                }
-            }
-        }
-
+        //Checking if a burst has finished
         if(time == burstTime && burstTime != 0){
             cpu = 0;
             burstTime = 0;
@@ -227,6 +172,50 @@ void SJF::SJFAlgorithm(){
             }
         }
 
+        if(tempList.size() > 0){
+            for(unsigned int i = 0; i < tempList.size(); i++){
+                if(time == tempList[i].get_arrival_time()){
+                    if(queueList.size() == 0){
+                        contextSwitchTime = (contextSwitch/2) + time;
+                    }
+                    //Figuring out where to add new process
+                    unsigned int tempIter = 0;
+                    for(tempIter = 0; tempIter < queueList.size(); tempIter++){
+                        if(tauTracker[queueList[tempIter]] > tauTracker[tempList[i].get_id()]){
+                            break;
+                        }
+                        else if(tauTracker[queueList[tempIter]] == tauTracker[tempList[i].get_id()]){
+                            if(burstTracker[queueList[tempIter]] > burstTracker[tempList[i].get_id()]){
+                                break;
+                            }
+                            else if(burstTracker[queueList[tempIter]] == burstTracker[tempList[i].get_id()]){
+                                if(IOTracker[queueList[tempIter]] > IOTracker[tempList[i].get_id()]){
+                                    break;
+                                }
+                                else if(IOTracker[queueList[tempIter]] == IOTracker[tempList[i].get_id()]){
+                                    if(queueList[tempIter] > tempList[i].get_id()){
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    queueList.insert(queueList.begin()+tempIter, tempList[i].get_id());
+                    objectQueue.insert(objectQueue.begin()+tempIter, tempList[i]);
+                    if(time < 1000)
+                        cout << "time " << time << "ms: Process " << tempList[i].get_id() << " (tau " << tauTracker[tempList[i].get_id()] << "ms) arrived; added to ready queue [Q ";
+                    tempList.erase(tempList.begin()+i);
+
+                    if(time < 1000){
+                        for(unsigned int j = 0; j < queueList.size(); j++){
+                            cout << queueList[j];
+                        }
+                        cout << "]" << endl;
+                    }
+                }
+            }
+        }
+
         for(unsigned int i = 0; i < processList.size(); i++){
             if(IOBlock[processList[i].get_id()] != 0 && IOBlock[processList[i].get_id()] == time){
                 IOBlock[processList[i].get_id()] = 0; 
@@ -248,20 +237,8 @@ void SJF::SJFAlgorithm(){
                                 if(queueList[tempIter] < processList[i].get_id()){
                                     break;
                                 }
-                                else{
-                                    continue;
-                                }
-                            }
-                            else{
-                                continue;
                             }
                         }
-                        else{
-                            continue;
-                        }
-                    }
-                    else{
-                        continue;
                     }
                 }
                 queueList.insert(queueList.begin()+tempIter, processList[i].get_id());
