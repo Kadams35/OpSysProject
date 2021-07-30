@@ -16,10 +16,12 @@ SJF::SJF(vector<Process> passedProcessList, int passedContextSwitch, float mainL
     contextSwitch = passedContextSwitch;
     lambda = mainLambda;
     alpha = someAlpha;
+    totalTime = 0.0;
+    CPUTime = 0.0;
+    contextSwitchTracker = 0;
 }
 
 void SJF::SJFAlgorithm(){
-    int contextSwitchTracker = 0; //Tracking if a context switch is currently happening
     int contextSwitchTime = 0;
     int burstTime = 0;
     map<char, int> IOBlock;
@@ -283,6 +285,21 @@ void SJF::SJFAlgorithm(){
 			break;
         }
         time++;
+        totalTime++;
+        if(cpu == 1){
+            CPUTime++;
+        }
     }
 
 }
+
+int SJF::getNumContextSwitches(){
+    return contextSwitchTracker;
+}
+
+double SJF::getCPUUtilization(){
+    //cout << "CPU time is " << CPUTime << " and totalTime is " << totalTime << endl;
+    double output = round((CPUTime/totalTime)*100*1000)/1000;
+    return output;
+}
+

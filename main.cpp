@@ -59,11 +59,12 @@ std::vector<Process> mainlist(int n, int seed, double lambda, int upper_bound) {
     return Main_list;
 }
 
+//Function to calculate the burst average given the list of processes
 double calculateBurstAverage(std::vector<Process> mainList){
     double sum = 0.0;
     int totalBursts = 0;
-    for(int i = 0; i < mainList.size(); i++){
-        for(int j = 0; j < mainList[i].get_burst_list().size(); j++){
+    for(unsigned int i = 0; i < mainList.size(); i++){
+        for(unsigned int j = 0; j < mainList[i].get_burst_list().size(); j++){
             sum = sum + mainList[i].get_burst_list()[j];
             totalBursts++;
         }
@@ -100,6 +101,7 @@ int main(int argc, char* argv[]) {
   
     SJF test2 = SJF(Main_list, t_cs, lambda, alpha);
     test2.SJFAlgorithm();
+    //std::cout << "Testing the CPU utilization function: " << test2.getCPUUtilization() << "%" << std::endl;
   
     FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
     test4.RR_algorithm();
