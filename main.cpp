@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
     double lambda = std::stod(argv[3]); //lambda value for interarrival times
     int upper_bound = std::stoi(argv[4]); //upper_bound for valid pseudo-random numbers
     int t_cs = std::stoi(argv[5]); //time in milliseconds for a context switch
-    //float alpha = std::stof(argv[6]); //alpha variable for exponential averaging //this might not be a float..
+    float alpha = std::stof(argv[6]); //alpha variable for exponential averaging //this might not be a float..
     int t_slice = std::stoi(argv[7]); //for RR algorithm, time slice value measured in milliseconds
 
     
@@ -83,7 +83,7 @@ int main(int argc, char* argv[]) {
     FCFS_RR test = FCFS_RR(Main_list, t_cs, t_slice);
     test.FCFS_algorithm();
   
-    SJF test2 = SJF(Main_list, t_cs, lambda);
+    SJF test2 = SJF(Main_list, t_cs, lambda, alpha);
     test2.SJFAlgorithm();
   
     FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
