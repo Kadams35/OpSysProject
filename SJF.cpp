@@ -61,9 +61,6 @@ void SJF::SJFAlgorithm(){
                     else{
                         for (unsigned int c = 1; c < queueList.size(); c++){
                             cout << queueList[c];
-                            if (c != (queueList.size()-1)){
-                                cout << " ";
-                            }
                         }
                         cout << "]" << endl;
                     }
@@ -126,9 +123,6 @@ void SJF::SJFAlgorithm(){
                     if(time < 1000){
                         for(unsigned int j = 0; j < queueList.size(); j++){
                             cout << queueList[j];
-                            if(j != (queueList.size()-1)){
-                                cout << " ";
-                            }
                         }
                         cout << "]" << endl;
                     }
@@ -150,9 +144,6 @@ void SJF::SJFAlgorithm(){
                 else{
                     for(unsigned int i = 1; i < queueList.size(); i++){
                         cout << queueList[i];
-                        if(i != (queueList.size()-1)){
-                            cout << " ";
-                        }
                     }
                     cout << "]" << endl;
                 }
@@ -182,9 +173,6 @@ void SJF::SJFAlgorithm(){
                     else{
                         for(unsigned int i = 0; i < queueList.size(); i++){
                             cout << queueList[i];
-                            if (i != (queueList.size()-1)){
-                                cout << " ";
-                            }
                         }
                         cout << "]" << endl;
                     }
@@ -204,9 +192,6 @@ void SJF::SJFAlgorithm(){
                     else{
                         for(unsigned int i = 0; i < queueList.size(); i++){
                             cout << queueList[i];
-                            if (i != (queueList.size()-1)){
-                                cout << " ";
-                            }
                         }
                         cout << "]" << endl;
                     }
@@ -233,9 +218,6 @@ void SJF::SJFAlgorithm(){
                     else{
                         for (unsigned int i = 0; i < queueList.size(); i++){
                             cout << queueList[i];
-                            if (i != (queueList.size()-1)){
-                                cout << " ";
-                            }
                         }
                         cout << "]" << endl;
                     }
@@ -286,9 +268,6 @@ void SJF::SJFAlgorithm(){
                     cout << "time " << time << "ms: Process " << processList[i].get_id() << " (tau " << tauTracker[processList[i].get_id()] << "ms) completed I/O; added to ready queue [Q ";
                     for (unsigned int e = 0; e < queueList.size(); e++){
                         cout << queueList[e];
-                        if (e != (queueList.size()-1)){
-                            cout << " ";
-                        }
                     }
                     cout << "]" << endl;
                 }
