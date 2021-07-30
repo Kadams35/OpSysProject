@@ -556,7 +556,7 @@ void FCFS_RR::RR_algorithm(){
 
 
 		//prevent a dumb infinite loop
-		if (process_list > 16 && time = 18041){
+		if (process_list.size() > 16 && time == 18041){
 			break;
 		}
 		time++;
