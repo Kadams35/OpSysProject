@@ -94,36 +94,6 @@ void FCFS_RR::FCFS_algorithm(){
 
 		}
 
-		//check if a process has arrived
-
-		if(temp_list.size() != 0){
-
-			for (unsigned int x = 0; x < temp_list.size(); x++){
-
-				if (time == temp_list[x].get_arrival_time()){
-
-					//set up context switch if first in queue
-					if (queue_list.size() == 1){
-						context_switch_time = (context_switch/2) + time;
-						
-					}
-
-					queue_list.push_back(temp_list[x].get_id());
-					object_queue.push_back(temp_list[x]);
-					if(time <= 999){
-						cout << "time " << time << "ms: Process " << temp_list[x].get_id() << " arrived; added to ready queue [Q ";
-
-						//print out arrival message
-						//cout << "time " << time << "ms: Process " << temp_list[x].get_id() << " arrived; added to ready queue [Q ";
-						for (unsigned int b = 1; b < queue_list.size(); b++){
-							cout << queue_list[b];
-						}
-						cout << "]" << endl;
-					}
-					temp_list.erase(temp_list.begin()+x);
-				}
-			}
-		}
 
 		//check if process burst has ended
 		if(time == burst_time && burst_time != 0){
@@ -236,7 +206,36 @@ void FCFS_RR::FCFS_algorithm(){
 			}
 
 		}
+		
+		//check if process arrived
+		if(temp_list.size() != 0){
 
+			for (unsigned int x = 0; x < temp_list.size(); x++){
+
+				if (time == temp_list[x].get_arrival_time()){
+
+					//set up context switch if first in queue
+					if (queue_list.size() == 1){
+						context_switch_time = (context_switch/2) + time;
+						
+					}
+
+					queue_list.push_back(temp_list[x].get_id());
+					object_queue.push_back(temp_list[x]);
+					if(time <= 999){
+						cout << "time " << time << "ms: Process " << temp_list[x].get_id() << " arrived; added to ready queue [Q ";
+
+						//print out arrival message
+						//cout << "time " << time << "ms: Process " << temp_list[x].get_id() << " arrived; added to ready queue [Q ";
+						for (unsigned int b = 1; b < queue_list.size(); b++){
+							cout << queue_list[b];
+						}
+						cout << "]" << endl;
+					}
+					temp_list.erase(temp_list.begin()+x);
+				}
+			}
+		}
 
 		//check if all processes ended
 		if(finished.size() == process_list.size() && CPU == 0 && context_switch_time <= time){
@@ -355,37 +354,6 @@ void FCFS_RR::RR_algorithm(){
 			queue_list.erase(queue_list.begin()+1);
 			object_queue.erase(object_queue.begin());
 
-		}
-
-		//check if a process has arrived
-
-		if(temp_list.size() != 0){
-
-			for (unsigned int x = 0; x < temp_list.size(); x++){
-
-				if (time == temp_list[x].get_arrival_time()){
-
-					//set up context switch if first in queue
-					if (queue_list.size() == 1){
-						context_switch_time = (context_switch/2) + time;
-						
-					}
-
-					queue_list.push_back(temp_list[x].get_id());
-					object_queue.push_back(temp_list[x]);
-					if (time <= 999){
-						cout << "time " << time << "ms: Process " << temp_list[x].get_id() << " arrived; added to ready queue [Q ";
-
-						//print out arrival message
-						//cout << "time " << time << "ms: Process " << temp_list[x].get_id() << " arrived; added to ready queue [Q ";
-						for (unsigned int b = 1; b < queue_list.size(); b++){
-							cout << queue_list[b];
-						}
-						cout << "]" << endl;
-					}
-					temp_list.erase(temp_list.begin()+x);
-				}
-			}
 		}
 
 		//check if process burst has ended
@@ -545,7 +513,37 @@ void FCFS_RR::RR_algorithm(){
 			}
 
 		}
+		
+		//check if a process has arrived
 
+		if(temp_list.size() != 0){
+
+			for (unsigned int x = 0; x < temp_list.size(); x++){
+
+				if (time == temp_list[x].get_arrival_time()){
+
+					//set up context switch if first in queue
+					if (queue_list.size() == 1){
+						context_switch_time = (context_switch/2) + time;
+						
+					}
+
+					queue_list.push_back(temp_list[x].get_id());
+					object_queue.push_back(temp_list[x]);
+					if (time <= 999){
+						cout << "time " << time << "ms: Process " << temp_list[x].get_id() << " arrived; added to ready queue [Q ";
+
+						//print out arrival message
+						//cout << "time " << time << "ms: Process " << temp_list[x].get_id() << " arrived; added to ready queue [Q ";
+						for (unsigned int b = 1; b < queue_list.size(); b++){
+							cout << queue_list[b];
+						}
+						cout << "]" << endl;
+					}
+					temp_list.erase(temp_list.begin()+x);
+				}
+			}
+		}
 
 		//check if all processes ended
 		if(finished.size() == process_list.size() && CPU == 0 && context_switch_time <= time){
