@@ -34,6 +34,7 @@ void SJF::SJFAlgorithm(){
     vector<Process> finished; //Vector storing finished processes
     map<char, unsigned int> tauTracker; // storing the Tau values
     map<char, unsigned int> IOTracker;
+    map<char, unsigned int> procWaitTime;
 
 
     //setting up the map
@@ -43,6 +44,7 @@ void SJF::SJFAlgorithm(){
         IOBlock[name] = 0;
         blockList[name] = 0;
         tauTracker[name] = 1/lambda;
+        procWaitTime[name] = 0;
     }
 
     int time = 0;
@@ -54,6 +56,10 @@ void SJF::SJFAlgorithm(){
                 cpu = 1;
                 contextSwitchTracker = 1;
                 int burstInterval = burstTracker[queueList[0]];
+                std::cout << "Current time: " << time << std::endl;
+                cout << "ContextSwitch/2: " << contextSwitch/2 << endl;
+                cout << "procWaitTime[queueList[0]]: "  << procWaitTime[queueList[0]] << endl;
+                waitTimes.push_back(time - (contextSwitch/2) - procWaitTime[queueList[0]]);
                 burstTime = (objectQueue[0].get_burst_list())[burstInterval];
                 if(time < 1000){
                     cout << "time " << time << "ms: Process " << queueList[0] << " (tau " << tauTracker[objectQueue[0].get_id()] << "ms) started using the CPU for " << burstTime << "ms burst [Q ";
@@ -202,10 +208,10 @@ void SJF::SJFAlgorithm(){
                     }
                     queueList.insert(queueList.begin()+tempIter, tempList[i].get_id());
                     objectQueue.insert(objectQueue.begin()+tempIter, tempList[i]);
+                    procWaitTime[tempList[i].get_id()] = time;
                     if(time < 1000)
                         cout << "time " << time << "ms: Process " << tempList[i].get_id() << " (tau " << tauTracker[tempList[i].get_id()] << "ms) arrived; added to ready queue [Q ";
                     tempList.erase(tempList.begin()+i);
-
                     if(time < 1000){
                         for(unsigned int j = 0; j < queueList.size(); j++){
                             cout << queueList[j];
@@ -247,6 +253,7 @@ void SJF::SJFAlgorithm(){
                 }
                 queueList.insert(queueList.begin()+tempIter, processList[i].get_id());
                 objectQueue.insert(objectQueue.begin()+tempIter, processList[i]);
+                procWaitTime[processList[i].get_id()] = time;
                 if(time < 1000){
                     cout << "time " << time << "ms: Process " << processList[i].get_id() << " (tau " << tauTracker[processList[i].get_id()] << "ms) completed I/O; added to ready queue [Q ";
                     for (unsigned int e = 0; e < queueList.size(); e++){
@@ -282,5 +289,14 @@ double SJF::getCPUUtilization(){
     //cout << "CPU time is " << CPUTime << " and totalTime is " << totalTime << endl;
     double output = round((CPUTime/totalTime)*100*1000)/1000;
     return output;
+}
+
+double SJF::getAvgWaitTime(){
+    double sum = 0.0;
+    for(unsigned int i = 0; i < waitTimes.size(); i++){
+        std::cout << waitTimes[i] << std::endl;
+        sum = sum + waitTimes[i];
+    }
+    return round((sum/waitTimes.size())*1000)/1000;
 }
 

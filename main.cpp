@@ -106,6 +106,7 @@ int main(int argc, char* argv[]) {
   
     SJF test2 = SJF(Main_list, t_cs, lambda, alpha);
     test2.SJFAlgorithm();
+    std::cout << "Testing SJF avg wait time: " << test2.getAvgWaitTime() << std::endl;
   
     FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
     test4.RR_algorithm();
