@@ -13,6 +13,8 @@ class SJF{
         void SJFAlgorithm();
         int getNumContextSwitches();
         double getCPUUtilization();
+        double getAvgWaitTime();
+
     private:
         vector<Process> processList;
         float lambda;
@@ -22,4 +24,5 @@ class SJF{
         double totalTime;
         double CPUTime;
         vector<char> queueList;
+        vector<int> waitTimes;
 };

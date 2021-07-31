@@ -14,6 +14,7 @@ public:
 
 
 
+
 private:
 		char id;
 		int arrival;

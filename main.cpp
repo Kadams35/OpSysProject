@@ -136,14 +136,10 @@ int main(int argc, char* argv[]) {
     //SJF Algorithm
     SJF test2 = SJF(Main_list, t_cs, lambda, alpha);
     test2.SJFAlgorithm();
-    
-    
-    //SRT Algorithm
+
     SRT test3 = SRT(Main_list, t_cs, lambda, alpha);
     test3.SRTAlgorithm();
-    
-    
-    //RR Algorithm
+  
     FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
     std::map<char, vector<int>> results4 = test4.RR_algorithm();
      //calculate metrics
