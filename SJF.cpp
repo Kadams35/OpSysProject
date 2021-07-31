@@ -56,9 +56,11 @@ void SJF::SJFAlgorithm(){
                 cpu = 1;
                 contextSwitchTracker = 1;
                 int burstInterval = burstTracker[queueList[0]];
-                std::cout << "Current time: " << time << std::endl;
-                cout << "ContextSwitch/2: " << contextSwitch/2 << endl;
-                cout << "procWaitTime[queueList[0]]: "  << procWaitTime[queueList[0]] << endl;
+                /* Debugging stuff
+                //std::cout << "Current time: " << time << std::endl;
+                //cout << "ContextSwitch/2: " << contextSwitch/2 << endl;
+                //cout << "procWaitTime[queueList[0]]: "  << procWaitTime[queueList[0]] << endl;
+                */
                 waitTimes.push_back(time - (contextSwitch/2) - procWaitTime[queueList[0]]);
                 burstTime = (objectQueue[0].get_burst_list())[burstInterval];
                 if(time < 1000){
