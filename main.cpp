@@ -180,11 +180,11 @@ int main(int argc, char* argv[]) {
     out << "-- CPU utilization: " << averageCPUBurst << "%" << std::endl;
     out << "Algorithm SRT" << std::endl;
     out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- average wait time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- average turnaround time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- total number of context switches: " << averageCPUBurst << std::endl;
-    out << "-- total number of preemptions: " << averageCPUBurst << std::endl;
-    out << "-- CPU utilization: " << averageCPUBurst << "%" << std::endl;
+    out << "-- average wait time: " << test3.getWaitTime() << " ms" << std::endl;
+    out << "-- average turnaround time: " << "0" << " ms" << std::endl;
+    out << "-- total number of context switches: " << test3.getNumContextSwitches() << std::endl;
+    out << "-- total number of preemptions: " << "0" << std::endl;
+    out << "-- CPU utilization: " << test3.getCPUUtilization() << "%" << std::endl;
     out << "Algorithm RR" << std::endl;
     out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
     out << "-- average wait time: " << averageCPUBurst << " ms" << std::endl;

@@ -11,6 +11,7 @@ class SRT{
         void SRTAlgorithm();
         int getNumContextSwitches();
         double getCPUUtilization();
+        double getWaitTime();
     private:
         vector<Process> processList;
         float lambda;
@@ -20,4 +21,5 @@ class SRT{
         double totalTime;
         double CPUTime;
         vector<Process> queueList;
+        map<char, unsigned int> waitTimes;
 };

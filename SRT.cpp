@@ -32,7 +32,9 @@ void SRT::SRTAlgorithm() {
     map<char, int> blockList; //Map to keep track of the block a process is on
     map<char, unsigned int> tauTracker; // storing the Tau values
     map<char, unsigned int> IOTracker;
+    map<char, unsigned int> procWaitTime;
     Process currentCPU = processList[0];
+
 
     //setting up the map
     for(unsigned int i = 0; i < processList.size(); i++){
@@ -41,6 +43,7 @@ void SRT::SRTAlgorithm() {
         IOBlock[name] = 0;
         blockList[name] = 0;
         tauTracker[name] = 1/lambda;
+        procWaitTime[name] = 0;
     }
 
     int time = 0;
@@ -203,6 +206,7 @@ void SRT::SRTAlgorithm() {
                         }
                     }
                     queueList.insert(queueList.begin()+tempIter, tempList[i]);
+                    procWaitTime[tempList[i].get_id()] = time;
                     if(time < 1000)
                         std::cout << "time " << time << "ms: Process " << tempList[i].get_id() << " (tau " << tauTracker[tempList[i].get_id()] << "ms) arrived; added to ready queue [Q ";
                     tempList.erase(tempList.begin()+i);
@@ -281,6 +285,7 @@ void SRT::SRTAlgorithm() {
         }
 
         if(finished.size() == processList.size() && contextSwitchTime <= time){
+            waitTimes = procWaitTime;
             cout << "time " << time << "ms: Simulator ended for SRT [Q empty]\n";
 			cout << endl;
 			break;
@@ -302,5 +307,13 @@ double SRT::getCPUUtilization(){
     //cout << "CPU time is RT" << CPUTime << " and totalTime is " << totalTime << endl;
     double output = round((CPUTime/totalTime)*100*1000)/1000;
     return output;
+}
+
+double SRT::getWaitTime(){
+    double sum = 0.0;
+    for( const auto &pair : waitTimes ){
+        sum = sum + pair.second;
+    }
+    return round((sum/waitTimes.size())*1000)/1000;
 }
 
