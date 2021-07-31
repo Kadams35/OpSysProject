@@ -223,22 +223,22 @@ void SJF::SJFAlgorithm(){
                 unsigned int tempIter = 0;
                 for(tempIter = 0; tempIter < queueList.size(); tempIter++){
                     if(tauTracker[queueList[tempIter]] > tauTracker[processList[i].get_id()]){
-                        std::cout << "Tau for process " << processList[i].get_id() << " is less than tau for process " << queueList[tempIter] << std::endl;
+                        //std::cout << "Tau for process " << processList[i].get_id() << " is less than tau for process " << queueList[tempIter] << std::endl;
                         break;
                     }
                     else if(tauTracker[queueList[tempIter]] == tauTracker[processList[i].get_id()]){
                         if(burstTracker[queueList[tempIter]] < burstTracker[processList[i].get_id()]){
-                            std::cout << "Bursts for process " << queueList[tempIter] << " (" << burstTracker[queueList[tempIter]] << ") is less than bursts for process " << queueList[tempIter] << " (" << burstTracker[processList[i].get_id()] << ")" << std::endl;
+                            //std::cout << "Bursts for process " << queueList[tempIter] << " (" << burstTracker[queueList[tempIter]] << ") is less than bursts for process " << queueList[tempIter] << " (" << burstTracker[processList[i].get_id()] << ")" << std::endl;
                             break;
                         }
                         else if(burstTracker[queueList[tempIter]] == burstTracker[processList[i].get_id()]){
                             if(IOTracker[queueList[tempIter]] < IOTracker[processList[i].get_id()]){
-                                std::cout << "IOBursts for process " << processList[i].get_id() << " is less than iobursts for process " << queueList[tempIter] << std::endl;
+                                //std::cout << "IOBursts for process " << processList[i].get_id() << " is less than iobursts for process " << queueList[tempIter] << std::endl;
                                 break;
                             }
                             else if(IOTracker[queueList[tempIter]] == IOTracker[processList[i].get_id()]){
                                 if(queueList[tempIter] < processList[i].get_id()){
-                                    std::cout << "Process " << processList[i].get_id() << " comes before process " << queueList[tempIter] << std::endl;
+                                    //std::cout << "Process " << processList[i].get_id() << " comes before process " << queueList[tempIter] << std::endl;
                                     break;
                                 }
                             }
