@@ -10,6 +10,7 @@
 #include "Process.h"
 #include "SJF.h"
 #include "FCFS_RR.h"
+#include "SRT.h"
 
 
 double next_exp(double lambda, int upper_bound){
@@ -96,6 +97,9 @@ int main(int argc, char* argv[]) {
     
     std::vector<Process> Main_list = mainlist(n, seed, lambda, upper_bound);
 
+    for (Process c : Main_list) {
+        std::cout << "Process " << c.get_id() << "(arrival time " << c.get_arrival_time() << " ms) " << c.get_burst_list().size() << " CPU bursts (tau 100ms)" << std::endl;
+    }
     //send to fcfsfsfscsdssfscdcd
     //Storing the burst average
     //double averageCPUBurst = calculateBurstAverage(Main_list);
@@ -106,7 +110,10 @@ int main(int argc, char* argv[]) {
   
     SJF test2 = SJF(Main_list, t_cs, lambda, alpha);
     test2.SJFAlgorithm();
-  
+
+    SRT test3 = SRT(Main_list, t_cs, lambda, alpha);
+    test3.SRTAlgorithm();
+
     FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
     test4.RR_algorithm();
 
