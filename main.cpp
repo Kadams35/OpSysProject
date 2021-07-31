@@ -97,9 +97,7 @@ int main(int argc, char* argv[]) {
     
     std::vector<Process> Main_list = mainlist(n, seed, lambda, upper_bound);
 
-    for (Process c : Main_list) {
-        std::cout << "Process " << c.get_id() << "(arrival time " << c.get_arrival_time() << " ms) " << c.get_burst_list().size() << " CPU bursts (tau 100ms)" << std::endl;
-    }
+
     //send to fcfsfsfscsdssfscdcd
     //Storing the burst average
     //double averageCPUBurst = calculateBurstAverage(Main_list);
