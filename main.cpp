@@ -52,7 +52,12 @@ std::vector<Process> mainlist(int n, int seed, double lambda, int upper_bound) {
         }
 
         Process temp = Process(id, arrival, cpu_bursts, io_bursts);
-        cout << "Process " << temp.get_id() << " (arrival time " << arrival << " ms) " << num_cpu_bursts << " CPU bursts (tau " << ceil(1/lambda) << "ms)" << endl; 
+        if(num_cpu_bursts == 1){
+            cout << "Process " << temp.get_id() << " (arrival time " << arrival << " ms) " << num_cpu_bursts << " CPU burst (tau " << ceil(1/lambda) << "ms)" << endl; 
+        }
+        else{
+            cout << "Process " << temp.get_id() << " (arrival time " << arrival << " ms) " << num_cpu_bursts << " CPU bursts (tau " << ceil(1/lambda) << "ms)" << endl; 
+        }
         Main_list.push_back(temp);
     }
     cout << "\n";
