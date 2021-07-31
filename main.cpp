@@ -96,6 +96,16 @@ int main(int argc, char* argv[]) {
 
     
     std::vector<Process> Main_list = mainlist(n, seed, lambda, upper_bound);
+    
+    //get total burst time and num of bursts
+    int num_bursts = Main_list[0].get_burst_list().size();
+    int total_burst_time = 0;
+    for (unsigned int a = 0; a < Main_list.size(); a++){
+        std::vector<int> burst_list = Main_list[a].get_burst_list();
+        for (unsigned int b = 0; b < burst_list.size(); b++){
+            total_burst_time += burst_list[b];
+        }
+    }
 
 
     //send to fcfsfsfscsdssfscdcd
@@ -103,17 +113,52 @@ int main(int argc, char* argv[]) {
     //double averageCPUBurst = calculateBurstAverage(Main_list);
     //cout << "Average CPU burst: " << averageCPUBurst << endl;
 
+    //FCFS Algorithm
     FCFS_RR test = FCFS_RR(Main_list, t_cs, t_slice);
-    test.FCFS_algorithm();
+    std::map<char, vector<int>> results1 = test.FCFS_algorithm();
+    //calculate metrics
+    float wait_time1 = 0;
+    float turnaround_time1 = 0;
+    int context_switch1 = 0;
+    int preemption1 = 0;
+    int time1 = test.get_total_time();
+    float CPU1 = total_burst_time/time1;
+
+    for(unsigned int x = 0; x < Main_list.size(); x++){
+        char name = Main_list[x].get_id();
+        wait_time1 += (results1[name][0]/num_bursts);
+        turnaround_time1 += (results1[name][1]/num_bursts);
+        context_switch1 += results1[name][2];
+    }
   
+    //SJF Algorithm
     SJF test2 = SJF(Main_list, t_cs, lambda, alpha);
     test2.SJFAlgorithm();
-
+    
+    
+    //SRT Algorithm
     SRT test3 = SRT(Main_list, t_cs, lambda, alpha);
     test3.SRTAlgorithm();
-
+    
+    
+    //RR Algorithm
     FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
-    test4.RR_algorithm();
+    std::map<char, vector<int>> results4 = test4.RR_algorithm();
+     //calculate metrics
+    float wait_time4 = 0;
+    float turnaround_time4 = 0;
+    int context_switch4 = 0;
+    int preemption4 = 0;
+    int time4 = test.get_total_time();
+    float CPU4 = total_burst_time/time4;
+
+    for(unsigned int x = 0; x < Main_list.size(); x++){
+        char name = Main_list[x].get_id();
+        wait_time4 += (results4[name][0]/num_bursts);
+        turnaround_time4 += (results4[name][1]/num_bursts);
+        context_switch4 += results4[name][2];
+        preemption4 += results4[name][3];
+    }
 
     return EXIT_SUCCESS;
 }
