@@ -110,7 +110,7 @@ int main(int argc, char* argv[]) {
 
     //send to fcfsfsfscsdssfscdcd
     //Storing the burst average
-    //double averageCPUBurst = calculateBurstAverage(Main_list);
+    double averageCPUBurst = calculateBurstAverage(Main_list);
     //cout << "Average CPU burst: " << averageCPUBurst << endl;
 
     //FCFS Algorithm
@@ -163,6 +163,43 @@ int main(int argc, char* argv[]) {
     }
     wait_time4 = wait_time4/Main_list.size();
     turnaround_time4 = turnaround_time4/Main_list.size();
+
+    
+
+    std::ofstream out ("simout.txt");
+
+    out << "Algorithm FCFS" << std::endl;
+    out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- average wait time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- average turnaround time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- total number of context switches: " << averageCPUBurst << std::endl;
+    out << "-- total number of preemptions: " << averageCPUBurst << std::endl;
+    out << "-- CPU utilization: " << averageCPUBurst << "%" << std::endl;
+    out << "Algorithm SJF" << std::endl;
+    out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- average wait time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- average turnaround time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- total number of context switches: " << averageCPUBurst << std::endl;
+    out << "-- total number of preemptions: " << averageCPUBurst << std::endl;
+    out << "-- CPU utilization: " << averageCPUBurst << "%" << std::endl;
+    out << "Algorithm SRT" << std::endl;
+    out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- average wait time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- average turnaround time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- total number of context switches: " << averageCPUBurst << std::endl;
+    out << "-- total number of preemptions: " << averageCPUBurst << std::endl;
+    out << "-- CPU utilization: " << averageCPUBurst << "%" << std::endl;
+    out << "Algorithm RR" << std::endl;
+    out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- average wait time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- average turnaround time: " << averageCPUBurst << " ms" << std::endl;
+    out << "-- total number of context switches: " << averageCPUBurst << std::endl;
+    out << "-- total number of preemptions: " << averageCPUBurst << std::endl;
+    out << "-- CPU utilization: " << averageCPUBurst << "%" << std::endl;
+
+    out.close();
+
+
 
     return EXIT_SUCCESS;
 }

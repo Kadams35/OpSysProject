@@ -223,7 +223,7 @@ void SRT::SRTAlgorithm() {
 
                 Process toqueue = processList[i];
                 bool preempt = false;                
-                if (tauTracker[processList[i].get_id()] < tauTracker[currentCPU.get_id()]) {
+                if (tauTracker[processList[i].get_id()] < tauTracker[currentCPU.get_id()] && cpu == 1) {
                     preempt = true;
                     if (time < 1000) {
                         std::cout << "time " << time << "ms: Process " << processList[i].get_id() << " (tau " << tauTracker[processList[i].get_id()] << "ms) completed I/O; preempting " << currentCPU.get_id() << " [Q ";
