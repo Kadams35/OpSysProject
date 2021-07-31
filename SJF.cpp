@@ -55,7 +55,7 @@ void SJF::SJFAlgorithm(){
                 contextSwitchTracker = 1;
                 int burstInterval = burstTracker[queueList[0]];
                 burstTime = (objectQueue[0].get_burst_list())[burstInterval];
-                if(time < 100000){
+                if(time < 1000){
                     cout << "time " << time << "ms: Process " << queueList[0] << " (tau " << tauTracker[objectQueue[0].get_id()] << "ms) started using the CPU for " << burstTime << "ms burst [Q ";
                     if (queueList.size() == 1){
                         cout << "empty]" << endl;
@@ -112,7 +112,7 @@ void SJF::SJFAlgorithm(){
             }
 
             else{
-                if(time < 100000){
+                if(time < 1000){
                     cout << "time " << time <<"ms: Process " << currentCPU.second << " (tau " << tauTracker[currentCPU.second] << "ms) completed a CPU burst; " << burstsLeft << " bursts to go [Q ";
                     if(queueList.size() == 0){
                         cout << "empty]" << endl;
@@ -131,7 +131,7 @@ void SJF::SJFAlgorithm(){
                 //Calculating Tau
                 int tempTau = tauTracker[currentCPU.second];
                 tauTracker[currentCPU.second] = ceil((1-alpha) * tauTracker[currentCPU.second] + alpha * currentCPU.first.get_burst_list()[burstTracker[currentCPU.second]-1]);
-                if(time < 100000){
+                if(time < 1000){
                     cout << "time " << time << "ms: Recalculated tau from " << tempTau << "ms to " << tauTracker[currentCPU.second] << "ms for process " << currentCPU.second << " [Q ";
                     if(queueList.size() == 0){
                         cout << "empty]" << endl;
@@ -157,7 +157,7 @@ void SJF::SJFAlgorithm(){
 
                 blockList[currentCPU.second] += 1;
                 IOBlock[currentCPU.second] = IOTime;
-                if(time < 100000){
+                if(time < 1000){
                     cout << "time " << time << "ms: Process " << currentCPU.second << " switching out of CPU; will block on I/O until time " << IOTime << "ms [Q ";
                     if (queueList.size() == 0){
                         cout << "empty]" << endl;
@@ -202,11 +202,11 @@ void SJF::SJFAlgorithm(){
                     }
                     queueList.insert(queueList.begin()+tempIter, tempList[i].get_id());
                     objectQueue.insert(objectQueue.begin()+tempIter, tempList[i]);
-                    if(time < 100000)
+                    if(time < 1000)
                         cout << "time " << time << "ms: Process " << tempList[i].get_id() << " (tau " << tauTracker[tempList[i].get_id()] << "ms) arrived; added to ready queue [Q ";
                     tempList.erase(tempList.begin()+i);
 
-                    if(time < 100000){
+                    if(time < 1000){
                         for(unsigned int j = 0; j < queueList.size(); j++){
                             cout << queueList[j];
                         }
@@ -247,7 +247,7 @@ void SJF::SJFAlgorithm(){
                 }
                 queueList.insert(queueList.begin()+tempIter, processList[i].get_id());
                 objectQueue.insert(objectQueue.begin()+tempIter, processList[i]);
-                if(time < 100000){
+                if(time < 1000){
                     cout << "time " << time << "ms: Process " << processList[i].get_id() << " (tau " << tauTracker[processList[i].get_id()] << "ms) completed I/O; added to ready queue [Q ";
                     for (unsigned int e = 0; e < queueList.size(); e++){
                         cout << queueList[e];
