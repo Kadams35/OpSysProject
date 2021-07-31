@@ -281,7 +281,7 @@ void SRT::SRTAlgorithm() {
         }
 
         if(finished.size() == processList.size() && contextSwitchTime <= time){
-            cout << "time " << time << "ms: Simulator ended for SJF [Q empty]\n";
+            cout << "time " << time << "ms: Simulator ended for SRT [Q empty]\n";
 			cout << endl;
 			break;
         }

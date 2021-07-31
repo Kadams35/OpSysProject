@@ -548,7 +548,7 @@ void FCFS_RR::RR_algorithm(){
 		//check if all processes ended
 		if(finished.size() == process_list.size() && CPU == 0 && context_switch_time <= time){
 			//print ending message
-			cout << "time " << time << "ms: Simulator ended for RR [Q empty]\n" << endl;
+			cout << "time " << time << "ms: Simulator ended for RR [Q empty]" << endl;
 			break;
 		}
 
