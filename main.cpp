@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
 
     //send to fcfsfsfscsdssfscdcd
     //Storing the burst average
-    double averageCPUBurst = calculateBurstAverage(Main_list);
+    //double averageCPUBurst = calculateBurstAverage(Main_list);
     //cout << "Average CPU burst: " << averageCPUBurst << endl;
 
     FCFS_RR test = FCFS_RR(Main_list, t_cs, t_slice);
@@ -101,7 +101,6 @@ int main(int argc, char* argv[]) {
   
     SJF test2 = SJF(Main_list, t_cs, lambda, alpha);
     test2.SJFAlgorithm();
-    //std::cout << "Testing the CPU utilization function: " << test2.getCPUUtilization() << "%" << std::endl;
   
     FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
     test4.RR_algorithm();
