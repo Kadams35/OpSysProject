@@ -12,15 +12,15 @@ class FCFS_RR{
 public:
 		FCFS_RR(vector<Process> a_process_list, int a_context_switch, int a_tslice);
 
-		void FCFS_algorithm();
-		void RR_algorithm();
-		int get_context_switch_num();
+		map<char, vector<int>> FCFS_algorithm();
+		map<char, vector<int>> RR_algorithm();
+		int get_total_time();
 
 private:
 		vector<Process> process_list;
 		int context_switch;
 		vector<char> queue_list;
-		int context_switch_tracker;
 		int tslice;
+		int total_time;
 
 };
