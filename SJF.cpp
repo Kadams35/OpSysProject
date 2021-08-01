@@ -281,7 +281,14 @@ void SJF::SJFAlgorithm(){
 }
 
 int SJF::getNumContextSwitches(){
-    return contextSwitchTracker;
+    int sumContextSwitches = 0;
+    for(unsigned int i = 0; i < processList.size(); i++){
+        for(unsigned int j = 0; j < processList[i].get_burst_list().size(); j++){
+            sumContextSwitches++;
+        }
+    }
+    return sumContextSwitches;
+    //return contextSwitchTracker;
 }
 
 double SJF::getCPUUtilization(){
@@ -295,6 +302,6 @@ double SJF::getAvgWaitTime(){
     for(unsigned int i = 0; i < waitTimes.size(); i++){
         sum = sum + waitTimes[i];
     }
-    return round((sum/waitTimes.size())*1000)/1000;
+    return round((sum/waitTimes.size())*1000)/1000.0;
 }
 
