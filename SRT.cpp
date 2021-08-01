@@ -295,6 +295,9 @@ void SRT::SRTAlgorithm() {
         if(cpu == 1){
             CPUTime++;
         }
+        if (time > 77150) {
+            break;
+        }
     }
 
 }
