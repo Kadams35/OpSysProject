@@ -115,7 +115,7 @@ int main(int argc, char* argv[]) {
 
     //FCFS Algorithm
     FCFS_RR test = FCFS_RR(Main_list, t_cs, t_slice);
-    std::map<char, vector<int>> results1 = test.FCFS_algorithm();
+    std::map<char, vector<int> > results1 = test.FCFS_algorithm();
     //calculate metrics
     float wait_time1 = 0;
     float turnaround_time1 = 0;
@@ -141,7 +141,7 @@ int main(int argc, char* argv[]) {
     test3.SRTAlgorithm();
   
     FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
-    std::map<char, vector<int>> results4 = test4.RR_algorithm();
+    std::map<char, vector<int> > results4 = test4.RR_algorithm();
      //calculate metrics
     float wait_time4 = 0;
     float turnaround_time4 = 0;
@@ -174,7 +174,7 @@ int main(int argc, char* argv[]) {
     out << "Algorithm SJF" << std::endl;
     out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
     out << "-- average wait time: " << test2.getAvgWaitTime() << " ms" << std::endl;
-    out << "-- average turnaround time: " << "0" << " ms" << std::endl;
+    out << "-- average turnaround time: " << test2.getAvgWaitTime()+averageCPUBurst+t_cs << " ms" << std::endl;
     out << "-- total number of context switches: " << test2.getNumContextSwitches() << std::endl;
     out << "-- total number of preemptions: 0" << std::endl;
     out << "-- CPU utilization: " << test2.getCPUUtilization() << "%" << std::endl;
