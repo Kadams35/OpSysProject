@@ -102,8 +102,7 @@ void SJF::SJFAlgorithm(){
                     }
                     cout << "]" << endl;
                 }
-                if(queueList.size() > 0)
-                    contextSwitchTracker += 1;
+                contextSwitchTracker++;
                 contextSwitchTime = 0;
                 if(queueList.size() > 0){
                     contextSwitchTime = contextSwitch + time;
@@ -132,9 +131,7 @@ void SJF::SJFAlgorithm(){
                         cout << "]" << endl;
                     }
                 }
-                if(queueList.size() > 0){
-                    contextSwitchTracker++;
-                }
+                contextSwitchTracker++;
 
                 //Calculating Tau
                 int tempTau = tauTracker[currentCPU.second];

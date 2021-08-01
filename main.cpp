@@ -75,7 +75,7 @@ double calculateBurstAverage(std::vector<Process> mainList){
             totalBursts++;
         }
     }
-    return sum/totalBursts;
+    return round(sum/totalBursts*1000)/1000;
 }
 
 
