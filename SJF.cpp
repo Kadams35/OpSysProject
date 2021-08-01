@@ -296,7 +296,6 @@ double SJF::getCPUUtilization(){
 double SJF::getAvgWaitTime(){
     double sum = 0.0;
     for(unsigned int i = 0; i < waitTimes.size(); i++){
-        std::cout << waitTimes[i] << std::endl;
         sum = sum + waitTimes[i];
     }
     return round((sum/waitTimes.size())*1000)/1000;

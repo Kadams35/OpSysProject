@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
     float wait_time1 = 0;
     float turnaround_time1 = 0;
     int context_switch1 = 0;
-    int preemption1 = 0;
+
     int time1 = test.get_total_time();
     float CPU1 = total_burst_time/time1;
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 #include <time.h>
 
 using namespace std;
@@ -21,5 +22,5 @@ class SRT{
         double totalTime;
         double CPUTime;
         vector<Process> queueList;
-        map<char, unsigned int> waitTimes;
+        std::map<char, unsigned int> waitTimes;
 };
