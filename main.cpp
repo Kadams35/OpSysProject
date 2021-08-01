@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
     
     //get total burst time and num of bursts
     int num_bursts = Main_list[0].get_burst_list().size();
-    int total_burst_time = 0;
+    float total_burst_time = 0;
     for (unsigned int a = 0; a < Main_list.size(); a++){
         std::vector<int> burst_list = Main_list[a].get_burst_list();
         for (unsigned int b = 0; b < burst_list.size(); b++){
@@ -122,7 +122,7 @@ int main(int argc, char* argv[]) {
     int context_switch1 = 0;
 
     int time1 = test.get_total_time();
-    float CPU1 = total_burst_time/time1;
+    float CPU1 = (total_burst_time/time1)*100;
 
     for(unsigned int x = 0; x < Main_list.size(); x++){
         char name = Main_list[x].get_id();
@@ -148,7 +148,7 @@ int main(int argc, char* argv[]) {
     int context_switch4 = 0;
     int preemption4 = 0;
     int time4 = test.get_total_time();
-    float CPU4 = total_burst_time/time4;
+    float CPU4 = (total_burst_time/time4)*100;
 
     for(unsigned int x = 0; x < Main_list.size(); x++){
         char name = Main_list[x].get_id();
