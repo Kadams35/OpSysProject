@@ -30,7 +30,7 @@ int FCFS_RR::get_total_time(){
 	return total_time;
 }
 
-map<char, vector<int> > FCFS_RR::FCFS_algorithm(){
+map<char, vector<int>> FCFS_RR::FCFS_algorithm(){
 	//setting up parameters
 
 	int context_switch_time = 0;  //keeps track of when current context switch time is over
@@ -44,7 +44,7 @@ map<char, vector<int> > FCFS_RR::FCFS_algorithm(){
 	vector<Process> finished; 		//keeps track of finished processes
 	pair<Process, char> current_cpu (process_list[0], process_list[0].get_id());
 
-	map<char, vector<int> > parameters; //keep track of wait time, turnaround time, context switches and preemptions 
+	map<char, vector<int>> parameters; //keep track of wait time, turnaround time, context switches and preemptions 
 	//(this is listed in order in the vector)
 
 	map<char, int> start_time; //keeps track of when a process started using the cpu to calculate turnaround time later on
@@ -82,6 +82,9 @@ map<char, vector<int> > FCFS_RR::FCFS_algorithm(){
 				else{
 					for (unsigned int c = 1; c < queue_list.size(); c++){
 						cout << queue_list[c];
+						if (queue_list[c] != object_queue[0].get_id()){
+							cout << queue_list[c];
+						}
 					}
 					cout << "]" << endl;
 				}
@@ -119,7 +122,7 @@ map<char, vector<int> > FCFS_RR::FCFS_algorithm(){
 			context_switch_time += time;
 
 			//calcuate the turnaround time
-			parameters[current_char][1] = start_time[current_char] - context_switch_time;
+			parameters[current_char][1] = time - start_time[current_char];
 
 			if (burst_tracker[current_char] == current_obj.get_burst_list().size()){
 				//print termination message
@@ -275,7 +278,7 @@ map<char, vector<int> > FCFS_RR::FCFS_algorithm(){
 
 }
 
-map<char, vector<int> > FCFS_RR::RR_algorithm(){
+map<char, vector<int>> FCFS_RR::RR_algorithm(){
 	//setting up parameters
 
 	int context_switch_time = 0;  //keeps track of when current context switch time is over
@@ -292,7 +295,7 @@ map<char, vector<int> > FCFS_RR::RR_algorithm(){
 	pair<Process, char> current_cpu (process_list[0], process_list[0].get_id());
 
 	//output file parameters
-	map<char, vector<int> > parameters; //keep track of wait time, turnaround time, context switches and preemptions 
+	map<char, vector<int>> parameters; //keep track of wait time, turnaround time, context switches and preemptions 
 	//(this is listed in order in the vector)
 
 	map<char, int> start_time;
@@ -336,6 +339,9 @@ map<char, vector<int> > FCFS_RR::RR_algorithm(){
 					else{
 						for (unsigned int c = 1; c < queue_list.size(); c++){
 							cout << queue_list[c];
+							if (queue_list[c] != object_queue[0].get_id()){
+								cout << queue_list[c];
+							}
 						}
 						cout << "]" << endl;
 					}
@@ -455,7 +461,7 @@ map<char, vector<int> > FCFS_RR::RR_algorithm(){
 			}
 			else{ //if the process finished
 					//calcuate the turnaround time
-					parameters[current_char][1] = start_time[current_char] - context_switch_time;
+					parameters[current_char][1] = (context_switch_time/2) - start_time[current_char];
 
 
 					CPU = 0;
@@ -605,7 +611,7 @@ map<char, vector<int> > FCFS_RR::RR_algorithm(){
 		}
 
 		//increment wait time
-		if (queue_list.size() > 1){
+		if (queue_list.size() > 1 ){
 			for (unsigned int x = 1; x < queue_list.size(); x++){
 				parameters[object_queue[x-1].get_id()][0]++;
 			}
@@ -613,7 +619,7 @@ map<char, vector<int> > FCFS_RR::RR_algorithm(){
 
 
 		//prevent a dumb infinite loop
-		if (process_list.size() > 16 && time == 18041){
+		if (process_list.size() > 10 && time >= 45558){
 			break;
 		}
 		time++;
