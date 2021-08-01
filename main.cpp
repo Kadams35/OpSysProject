@@ -75,7 +75,7 @@ double calculateBurstAverage(std::vector<Process> mainList){
             totalBursts++;
         }
     }
-    return sum/totalBursts;
+    return round(sum/totalBursts*1000)/1000;
 }
 
 
@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
     
     //get total burst time and num of bursts
     int num_bursts = Main_list[0].get_burst_list().size();
-    int total_burst_time = 0;
+    float total_burst_time = 0;
     for (unsigned int a = 0; a < Main_list.size(); a++){
         std::vector<int> burst_list = Main_list[a].get_burst_list();
         for (unsigned int b = 0; b < burst_list.size(); b++){
@@ -115,14 +115,14 @@ int main(int argc, char* argv[]) {
 
     //FCFS Algorithm
     FCFS_RR test = FCFS_RR(Main_list, t_cs, t_slice);
-    std::map<char, vector<int>> results1 = test.FCFS_algorithm();
+    std::map<char, vector<int> > results1 = test.FCFS_algorithm();
     //calculate metrics
     float wait_time1 = 0;
     float turnaround_time1 = 0;
     int context_switch1 = 0;
 
     int time1 = test.get_total_time();
-    float CPU1 = total_burst_time/time1;
+    float CPU1 = (total_burst_time/time1)*100;
 
     for(unsigned int x = 0; x < Main_list.size(); x++){
         char name = Main_list[x].get_id();
@@ -130,7 +130,7 @@ int main(int argc, char* argv[]) {
         turnaround_time1 += (results1[name][1]/num_bursts);
         context_switch1 += results1[name][2];
     }
-    wait_time1 = wait_time1/Main_list.size();
+    wait_time1 = wait_time1/Main_list.size() -(t_cs/2);;
     turnaround_time1 = turnaround_time1/Main_list.size();
   
     //SJF Algorithm
@@ -141,14 +141,14 @@ int main(int argc, char* argv[]) {
     test3.SRTAlgorithm();
   
     FCFS_RR test4 = FCFS_RR(Main_list, t_cs, t_slice);
-    std::map<char, vector<int>> results4 = test4.RR_algorithm();
+    std::map<char, vector<int> > results4 = test4.RR_algorithm();
      //calculate metrics
     float wait_time4 = 0;
     float turnaround_time4 = 0;
     int context_switch4 = 0;
     int preemption4 = 0;
     int time4 = test.get_total_time();
-    float CPU4 = total_burst_time/time4;
+    float CPU4 = (total_burst_time/time4)*100;
 
     for(unsigned int x = 0; x < Main_list.size(); x++){
         char name = Main_list[x].get_id();
@@ -157,7 +157,7 @@ int main(int argc, char* argv[]) {
         context_switch4 += results4[name][2];
         preemption4 += results4[name][3];
     }
-    wait_time4 = wait_time4/Main_list.size();
+    wait_time4 = wait_time4/Main_list.size() -(t_cs/2);;
     turnaround_time4 = turnaround_time4/Main_list.size();
 
     
@@ -174,7 +174,7 @@ int main(int argc, char* argv[]) {
     out << "Algorithm SJF" << std::endl;
     out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
     out << "-- average wait time: " << test2.getAvgWaitTime() << " ms" << std::endl;
-    out << "-- average turnaround time: " << "0" << " ms" << std::endl;
+    out << "-- average turnaround time: " << test2.getAvgWaitTime()+averageCPUBurst+t_cs << " ms" << std::endl;
     out << "-- total number of context switches: " << test2.getNumContextSwitches() << std::endl;
     out << "-- total number of preemptions: 0" << std::endl;
     out << "-- CPU utilization: " << test2.getCPUUtilization() << "%" << std::endl;
