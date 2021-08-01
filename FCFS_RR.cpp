@@ -30,7 +30,7 @@ int FCFS_RR::get_total_time(){
 	return total_time;
 }
 
-map<char, vector<int>> FCFS_RR::FCFS_algorithm(){
+map<char, vector<int> > FCFS_RR::FCFS_algorithm(){
 	//setting up parameters
 
 	int context_switch_time = 0;  //keeps track of when current context switch time is over
@@ -44,7 +44,7 @@ map<char, vector<int>> FCFS_RR::FCFS_algorithm(){
 	vector<Process> finished; 		//keeps track of finished processes
 	pair<Process, char> current_cpu (process_list[0], process_list[0].get_id());
 
-	map<char, vector<int>> parameters; //keep track of wait time, turnaround time, context switches and preemptions 
+	map<char, vector<int> > parameters; //keep track of wait time, turnaround time, context switches and preemptions 
 	//(this is listed in order in the vector)
 
 	map<char, int> start_time; //keeps track of when a process started using the cpu to calculate turnaround time later on
@@ -275,7 +275,7 @@ map<char, vector<int>> FCFS_RR::FCFS_algorithm(){
 
 }
 
-map<char, vector<int>> FCFS_RR::RR_algorithm(){
+map<char, vector<int> > FCFS_RR::RR_algorithm(){
 	//setting up parameters
 
 	int context_switch_time = 0;  //keeps track of when current context switch time is over
@@ -292,7 +292,7 @@ map<char, vector<int>> FCFS_RR::RR_algorithm(){
 	pair<Process, char> current_cpu (process_list[0], process_list[0].get_id());
 
 	//output file parameters
-	map<char, vector<int>> parameters; //keep track of wait time, turnaround time, context switches and preemptions 
+	map<char, vector<int> > parameters; //keep track of wait time, turnaround time, context switches and preemptions 
 	//(this is listed in order in the vector)
 
 	map<char, int> start_time;

@@ -12,8 +12,8 @@ class FCFS_RR{
 public:
 		FCFS_RR(vector<Process> a_process_list, int a_context_switch, int a_tslice);
 
-		map<char, vector<int>> FCFS_algorithm();
-		map<char, vector<int>> RR_algorithm();
+		map<char, vector<int> > FCFS_algorithm();
+		map<char, vector<int> > RR_algorithm();
 		int get_total_time();
 
 private:
