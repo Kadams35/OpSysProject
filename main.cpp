@@ -166,18 +166,18 @@ int main(int argc, char* argv[]) {
 
     out << "Algorithm FCFS" << std::endl;
     out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- average wait time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- average turnaround time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- total number of context switches: " << averageCPUBurst << std::endl;
-    out << "-- total number of preemptions: " << averageCPUBurst << std::endl;
-    out << "-- CPU utilization: " << averageCPUBurst << "%" << std::endl;
+    out << "-- average wait time: " << wait_time1 << " ms" << std::endl;
+    out << "-- average turnaround time: " << turnaround_time1 << " ms" << std::endl;
+    out << "-- total number of context switches: " << context_switch1 << std::endl;
+    out << "-- total number of preemptions: 0" << std::endl;
+    out << "-- CPU utilization: " << CPU1 << "%" << std::endl;
     out << "Algorithm SJF" << std::endl;
     out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- average wait time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- average turnaround time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- total number of context switches: " << averageCPUBurst << std::endl;
-    out << "-- total number of preemptions: " << averageCPUBurst << std::endl;
-    out << "-- CPU utilization: " << averageCPUBurst << "%" << std::endl;
+    out << "-- average wait time: " << test2.getAvgWaitTime() << " ms" << std::endl;
+    out << "-- average turnaround time: " << "0" << " ms" << std::endl;
+    out << "-- total number of context switches: " << test2.getNumContextSwitches() << std::endl;
+    out << "-- total number of preemptions: 0" << std::endl;
+    out << "-- CPU utilization: " << test2.getCPUUtilization() << "%" << std::endl;
     out << "Algorithm SRT" << std::endl;
     out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
     out << "-- average wait time: " << test3.getWaitTime() << " ms" << std::endl;
@@ -187,11 +187,11 @@ int main(int argc, char* argv[]) {
     out << "-- CPU utilization: " << test3.getCPUUtilization() << "%" << std::endl;
     out << "Algorithm RR" << std::endl;
     out << "-- average CPU burst time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- average wait time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- average turnaround time: " << averageCPUBurst << " ms" << std::endl;
-    out << "-- total number of context switches: " << averageCPUBurst << std::endl;
-    out << "-- total number of preemptions: " << averageCPUBurst << std::endl;
-    out << "-- CPU utilization: " << averageCPUBurst << "%" << std::endl;
+    out << "-- average wait time: " << wait_time4 << " ms" << std::endl;
+    out << "-- average turnaround time: " << turnaround_time4 << " ms" << std::endl;
+    out << "-- total number of context switches: " << context_switch4 << std::endl;
+    out << "-- total number of preemptions: " << preemption4 << std::endl;
+    out << "-- CPU utilization: " << CPU4 << "%" << std::endl;
 
     out.close();
 
