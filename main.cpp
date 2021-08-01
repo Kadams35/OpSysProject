@@ -130,7 +130,7 @@ int main(int argc, char* argv[]) {
         turnaround_time1 += (results1[name][1]/num_bursts);
         context_switch1 += results1[name][2];
     }
-    wait_time1 = wait_time1/Main_list.size();
+    wait_time1 = wait_time1/Main_list.size() -(t_cs/2);;
     turnaround_time1 = turnaround_time1/Main_list.size();
   
     //SJF Algorithm
@@ -157,7 +157,7 @@ int main(int argc, char* argv[]) {
         context_switch4 += results4[name][2];
         preemption4 += results4[name][3];
     }
-    wait_time4 = wait_time4/Main_list.size();
+    wait_time4 = wait_time4/Main_list.size() -(t_cs/2);;
     turnaround_time4 = turnaround_time4/Main_list.size();
 
     
